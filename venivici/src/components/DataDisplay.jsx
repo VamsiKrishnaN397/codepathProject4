@@ -13,6 +13,11 @@ const DataDisplay = () => {
         breed_id: "", 
         breed_name: ""
     }]);
+    const [origin, setOrigin] = useState([{
+        breed_id: "", 
+        breed_origin: "",
+        origin: ""
+    }]);
     const [inputs, setInputs] = useState({
         name: "",
         life_span: "",
@@ -32,7 +37,12 @@ const DataDisplay = () => {
                 breedIds.push(breeds[id].breed_id);
             }
             breedIds = breedIds.filter(Boolean)
-            if(breedIds.includes(json[0].breeds[0].id)){
+            let countryCode = [];
+            for(let id in origin){
+                countryCode.push(origin[id].breed_origin);
+            }
+            countryCode = countryCode.filter(Boolean)
+            if(breedIds.includes(json[0].breeds[0].id) || countryCode.includes(json[0].breeds[0].country_code)){
                 makeQuery();
             }
             else{
@@ -43,7 +53,8 @@ const DataDisplay = () => {
                     name: json[0].breeds[0].name,
                     life_span: json[0].breeds[0].life_span,
                     origin: json[0].breeds[0].origin,
-                    breed_id: json[0].breeds[0].id
+                    breed_id: json[0].breeds[0].id,
+                    countryCode: json[0].breeds[0].country_code
                 })
                 setIsTagVisible(true);
             }
@@ -56,8 +67,14 @@ const DataDisplay = () => {
             breedIds.push(breeds[id].breed_id);
         }
         breedIds = breedIds.filter(Boolean)
+        
+        let countryCodes = [];
+        for(let id in origin){
+            countryCodes.push(origin[id].breed_origin);
+        }
+        countryCodes = countryCodes.filter(Boolean)
 
-        let query = breeds.length > 1 ? `https://api.thecatapi.com/v1/images/search?api_key=${ACCESS_KEY}&limit=1&has_breeds=true&breed_ids!=${breedIds}` : 
+        let query = breeds.length > 1 ? `https://api.thecatapi.com/v1/images/search?api_key=${ACCESS_KEY}&limit=1&has_breeds=true&breed_ids!=${breedIds}&country_code!=${countryCodes}` : 
         `https://api.thecatapi.com/v1/images/search?api_key=${ACCESS_KEY}&limit=1&has_breeds=true`;
         callAPI(query).catch(console.error);
     }
@@ -71,8 +88,19 @@ const DataDisplay = () => {
             setBreeds((item) => [...item, {breed_id: inputs.breed_id, breed_name: inputs.name}]);
         }
     }
+    const banOrigin = () => {
+        let countryCode = [];
+        for(let id in origin){
+            countryCode.push(origin[id].breed_origin);
+        }
+        countryCode = countryCode.filter(Boolean)
+        if(!countryCode.includes(inputs.breed_id) && !countryCode.includes(inputs.countryCode)){
+            setOrigin((item) => [...item, {breed_id: inputs.breed_id, breed_origin: inputs.countryCode, origin: inputs.origin}]);
+        }
+    }
     const unBanAttribute = (e) => {
         setBreeds(prevBreeds => prevBreeds.filter(breed => breed.breed_id !== e));
+        setOrigin(prevOrigin => prevOrigin.filter(breed => breed.breed_id !== e));
     }
     return (
         <>
@@ -100,7 +128,7 @@ const DataDisplay = () => {
                                 }
                                 {isTagVisible &&    
                                     <button className="btn btn-info">
-                                        <span style={{color: 'white', fontSize: 20 + 'px'}}>{inputs.origin}</span>
+                                        <span style={{color: 'white', fontSize: 20 + 'px'}} onClick={banOrigin}>{inputs.origin}</span>
                                     </button>
                                 }
                                 <br/>
@@ -119,6 +147,11 @@ const DataDisplay = () => {
                                 {breeds.map(item => item.breed_id!= "" && (
                                     <button className="btn btn-danger" key={item.breed_id}>
                                         <span style={{color: 'white', fontSize: 20 + 'px'}} onClick={() => unBanAttribute(item.breed_id)}>{item.breed_name}</span>
+                                    </button>
+                                ))}
+                                {origin.map(item => item.breed_id!= "" && (
+                                    <button className="btn btn-danger" key={item.breed_id}>
+                                        <span style={{color: 'white', fontSize: 20 + 'px'}} onClick={() => unBanAttribute(item.breed_origin)}>{item.origin}</span>
                                     </button>
                                 ))}
                             </div>
