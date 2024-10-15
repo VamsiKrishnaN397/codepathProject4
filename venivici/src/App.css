@@ -1,0 +1,22 @@
+body{
+  text-align: center;
+  background-color: black;
+  color: lightgray;
+}
+
+.card{
+  margin-top: 10px;
+  background-color: rgb(155, 164, 172);
+  z-index: 1;
+}
+
+.catImage{
+  width: 80%;
+  height: 80%;
+  border-radius: 7%;
+  margin: 10px 0px;
+}
+
+.btn{
+  margin: 5px 5px 5px 5px;
+}
