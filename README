@@ -20,7 +20,7 @@ The following **required** functionality is completed:
 
 The following **optional** features are implemented:
 
-- [ ❌ ] Multiple types of attributes can be added to the ban list
+- [ ✅ ] Multiple types of attributes can be added to the ban list
 - [ ✅ ] Users can see a stored history of their previously viewed items from their session
 
 The following **additional** features are implemented:
@@ -32,14 +32,13 @@ Made the site user friendly and also mobile responsive for any screen size
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://imgur.com/a/6aG1FBQ' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://imgur.com/a/IlWesGM' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 <!-- Replace this with whatever GIF tool you used! -->
 GIF created with ...
-[LiceCap] for windows: https://imgur.com/a/6aG1FBQ
-<!-- Recommended tools:
-[Windows Screen Recorder](https://getkap.co/) for Windows -->
-The video has been attached with the project here
+[LiceCap] for windows: https://imgur.com/a/IlWesGM
+<!-- Recommended tools: -->
+[Loom] for Windows: https://www.loom.com/share/ef99e9ef1d7b419b84c3642917580727?sid=6ad42a7f-ecf5-4a0b-8542-959f0453d335
 
 ## Notes
 Describe any challenges encountered while building the app.

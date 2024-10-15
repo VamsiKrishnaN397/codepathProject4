@@ -42,6 +42,7 @@ const DataDisplay = () => {
                 countryCode.push(origin[id].breed_origin);
             }
             countryCode = countryCode.filter(Boolean)
+            
             if(breedIds.includes(json[0].breeds[0].id) || countryCode.includes(json[0].breeds[0].country_code)){
                 makeQuery();
             }
@@ -100,7 +101,7 @@ const DataDisplay = () => {
     }
     const unBanAttribute = (e) => {
         setBreeds(prevBreeds => prevBreeds.filter(breed => breed.breed_id !== e));
-        setOrigin(prevOrigin => prevOrigin.filter(breed => breed.breed_id !== e));
+        setOrigin(prevOrigin => prevOrigin.filter(origin => origin.breed_origin !== e));
     }
     return (
         <>
